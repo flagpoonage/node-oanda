@@ -53,14 +53,14 @@ core.prototype = {
     console.log('request', path, type, opts);
 
     this.urlFormatter.setParameters(opts);
-    var url;
+    var url, data;
 
     if(this.appendBodyData(type)) {
       url = this.urlFormatter.getUrl(path, true);
-      data = this.urlFormmater.createParamString(this.urlFormmater.params);
+      data = this.urlFormatter.createParamString(this.urlFormmater.params);
     }
     else{
-      url = this.urlFormmater.getUrl(path, false);
+      url = this.urlFormatter.getUrl(path, false);
     }
 
 

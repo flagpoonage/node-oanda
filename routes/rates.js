@@ -22,7 +22,7 @@ rates.prototype = {
   },
 
   retrieveInstrumentHistory: function(instrument, options) {
-    options = util.defin(options, {});
+    options = util.define(options, {});
     options.instrument = instrument;
 
     return this.core.request(
