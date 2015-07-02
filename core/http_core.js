@@ -79,7 +79,7 @@ core.prototype = {
   appendBodyData: function(type) {
     var body = ['POST', 'PUT', 'PATCH'];
     return body.indexOf(type) !== -1;
-  }
+  },
 
   addAuthorizationHeader: function(options) {
     console.log('addAuthorizationHeader', options);
