@@ -1,0 +1,30 @@
+{
+  "name": "node-oanda",
+  "version": "1.0.0",
+  "description": "A NodeJS wrapper for the Oanda REST API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flagpoonage/node-oanda.git"
+  },
+  "keywords": [
+    "oanda",
+    "forex",
+    "rest",
+    "api",
+    "nodejs"
+  ],
+  "author": "= <pokinoice@live.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flagpoonage/node-oanda/issues"
+  },
+  "homepage": "https://github.com/flagpoonage/node-oanda",
+  "dependencies": {
+    "qs": "^3.1.0",
+    "router": "^1.1.1"
+  }
+}
