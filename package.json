@@ -1,6 +1,6 @@
 {
   "name": "node-oanda",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A NodeJS wrapper for the Oanda REST API",
   "main": "index.js",
   "scripts": {
