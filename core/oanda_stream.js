@@ -54,7 +54,7 @@ fn.prototype = {
     );
 
     request.on('error', function(err) {
-      this.errorFn(res.statusCode, err);
+      this.errorFn(err);
     });
 
     this.request = request;
