@@ -15,10 +15,10 @@ var fn = function(transport, options, stream_options) {
 
 var success_stream = function(response) {
   var buffer = '';
-  res.setEncoding('utf8');
+  response.setEncoding('utf8');
 
-  res.on('data', this.dataFn);
-  res.on('end', this.disconnect);
+  response.on('data', this.dataFn);
+  response.on('end', this.disconnect);
 };
 
 fn.prototype = {
