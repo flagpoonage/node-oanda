@@ -53,8 +53,9 @@ fn.prototype = {
       success_stream
     );
 
+    var ef = this.errorFn;
     request.on('error', function(err) {
-      this.errorFn(err);
+      ef(err);
     });
 
     this.request = request;
