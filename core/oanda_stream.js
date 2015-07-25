@@ -42,8 +42,12 @@ fn.prototype = {
     return this;
   },
 
-  go: function() {
+  end: function() {
+    this.disconnectFn('User initiated');
+    this.request.end();
+  },
 
+  begin: function() {
     var request = this.transport.request(
       this.options,
       success_stream
@@ -53,7 +57,7 @@ fn.prototype = {
       this.errorFn(res.statusCode, err);
     });
 
-    request.end();
+    this.request = request;
     return request;
   }
 };
