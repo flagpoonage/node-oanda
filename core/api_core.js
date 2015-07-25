@@ -10,7 +10,12 @@ var core = function(options) {
   this.addToken(options.token);
   this.setEndpoint(options.type);
   this.setDatetimeFormat(options.dateFormat);
-  this.urlFormatter = new UrlFormatter(this.request_endpoint);
+  this.requestUrlFormatter = new UrlFormatter(this.request_endpoint);
+  this.streamUrlFormatter = new UrlFormatter(this.stream_endpoint);
+
+  console.log();
+  console.log('OANDA Core initialized.');
+  console.log();
 };
 
 core.prototype = {
@@ -25,7 +30,6 @@ core.prototype = {
   },
 
   setEndpoint: function(type) {
-    console.log('setEndpoint', type);
 
     switch(type) {
       case 'sandbox':
@@ -44,6 +48,9 @@ core.prototype = {
         this.transport = https;
         break;
     }
+
+    console.log('request_endpoint: ' + this.request_endpoint);
+    console.log('stream_endpoint: ' + this.stream_endpoint);
   },
 
   setDatetimeFormat: function(type) {
@@ -54,19 +61,19 @@ core.prototype = {
   request: function(path, type, opts) {
     console.log('request', path, type, opts);
 
-    this.urlFormatter.setParameters(opts);
+    this.requestUrlFormatter.setParameters(opts);
     var url, data;
 
     if(this.appendBodyData(type)) {
-      url = this.urlFormatter.getUrl(path, true);
-      data = this.urlFormatter.createParamString(this.urlFormmater.params);
+      url = this.requestUrlFormatter.getUrl(path, true);
+      data = this.requestUrlFormatter.createParamString(this.urlFormmater.params);
     }
     else{
-      url = this.urlFormatter.getUrl(path, false);
+      url = this.requestUrlFormatter.getUrl(path, false);
     }
 
 
-    var options = this.urlFormatter.getRequestOptions(url);
+    var options = this.requestUrlFormatter.getRequestOptions(url);
     options.method = type;
 
     if(this.hasToken) {
@@ -81,11 +88,11 @@ core.prototype = {
   stream: function(path, opts) {
     console.log('stream', path, options);
 
-    this.urlFormatter.setParameters(opts);
+    this.streamUrlFormatter.setParameters(opts);
 
-    var url = this.urlFormatter.getUrl(path, false);
+    var url = this.streamUrlFormatter.getUrl(path, false);
 
-    var options = this.urlFormatter.getRequestOptions(url);
+    var options = this.streamUrlFormatter.getRequestOptions(url);
     options.method = 'GET';
 
     if(this.hasToken) {
