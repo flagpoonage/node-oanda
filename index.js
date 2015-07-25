@@ -1,4 +1,4 @@
-var HttpCore = require('./core/http_core');
+var ApiCore = require('./core/api_core');
 var Accounts = require('./routes/accounts');
 var History = require('./routes/history');
 var Orders = require('./routes/orders');
@@ -7,7 +7,7 @@ var Rates = require('./routes/rates');
 var Trades = require('./routes/trades');
 
 var Oanda = function(options) {
-  this.core = new HttpCore(options);
+  this.core = new ApiCore(options);
 
   this.accounts = new Accounts(this.core);
   this.history = new History(this.core);
