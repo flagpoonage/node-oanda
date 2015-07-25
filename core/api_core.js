@@ -1,6 +1,7 @@
 var http = require('http');
 var https = require('https');
 var OandaRequest = require('./oanda_request');
+var OandaStream = require('./oanda_stream');
 var UrlFormatter = require('./url_formatter');
 
 var core = function(options) {
