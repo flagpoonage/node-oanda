@@ -59,6 +59,7 @@ fn.prototype = {
     });
 
     this.request = request;
+    request.end();
     return request;
   }
 };
