@@ -5,7 +5,7 @@ var Orders = require('./requests/orders');
 var Positions = require('./requests/positions');
 var Rates = require('./requests/rates');
 var Trades = require('./requests/trades');
-var RateStream = require('./requests/streams');
+var Streams = require('./requests/streams');
 
 var Oanda = function(options) {
   this.core = new ApiCore(options);
