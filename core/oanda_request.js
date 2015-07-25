@@ -1,7 +1,8 @@
-var fn = function(core, options, data) {
-  this.core = core;
+var fn = function(transport, options, data) {
+  this.transport = transport;
   this.data = data;
   this.options = options;
+  
   this.successFn = function() {};
   this.errorFn = function() {};
 };
@@ -21,7 +22,7 @@ var successWrapper = function(callback) {
       var obj = JSON.parse(buffer);
       callback(obj, res.statusCode);
     });
-  }
+  };
 };
 
 fn.prototype = {
@@ -31,12 +32,12 @@ fn.prototype = {
   },
 
   error: function(cb) {
-    this.errorFn = cb
+    this.errorFn = cb;
     return this;
   },
 
   go: function() {
-    var request = this.core.request(
+    var request = this.transport.request(
       this.options,
       successWrapper(this.successFn));
 

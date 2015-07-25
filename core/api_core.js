@@ -9,7 +9,7 @@ var core = function(options) {
   this.addToken(options.token);
   this.setEndpoint(options.type);
   this.setDatetimeFormat(options.dateFormat);
-  this.urlFormatter = new UrlFormatter(this.endpoint);
+  this.urlFormatter = new UrlFormatter(this.request_endpoint);
 };
 
 core.prototype = {
@@ -29,16 +29,19 @@ core.prototype = {
 
     switch(type) {
       case 'sandbox':
-        this.endpoint = 'http://api-sandbox.oanda.com';
-        this.request_core = http;
+        this.request_endpoint = 'http://api-sandbox.oanda.com';
+        this.stream_endpoint = 'http://stream-sandbox.oanda.com';
+        this.transport = http;
         break;
       case 'practice':
-        this.endpoint = 'https://api-fxpractice.oanda.com';
-        this.request_core = https;
+        this.request_endpoint = 'https://api-fxpractice.oanda.com';
+        this.stream_endpoint = 'https://stream-fxpractice.oanda.com';
+        this.transport = https;
         break;
       default:
-        this.endpoint = 'https://api-fxtrade.oanda.com';
-        this.request_core = https;
+        this.request_endpoint = 'https://api-fxtrade.oanda.com';
+        this.stream_endpoint = 'https://stream-fxtrade.oanda.com';
+        this.transport = https;
         break;
     }
   },
@@ -92,11 +95,14 @@ core.prototype = {
   makeRequest: function(options, body) {
     console.log('makeRequest', options, body);
 
-    return new OandaRequest(this.request_core, options, body);
+    return new OandaRequest(this.transport, options, body);
   },
 
-  makeRequestSuccess: function(callback) {
-  },
+  makeStream: function(options) {
+    console.log('makeStream', options);
+
+    return new OandaStream(this.transport, options);
+  }
 };
 
 module.exports = core;
