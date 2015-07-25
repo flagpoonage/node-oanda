@@ -9,7 +9,7 @@ var fn = function(transport, options, stream_options) {
   this.disconnectFn = function() {};
 
   this.dataFn = function(data) {
-    console.log('Stream data received: ', data);
+    console.log(data);
   };
 };
 
@@ -18,7 +18,11 @@ var success_stream = function(response) {
   response.setEncoding('utf8');
 
   response.on('data', this.dataFn);
-  response.on('end', this.disconnect);
+  response.on('end', this.disconnectFn);
+
+  console.log();
+  console.log('OANDA Stream is connected');
+  console.log();
 };
 
 fn.prototype = {
@@ -50,15 +54,10 @@ fn.prototype = {
   begin: function() {
     var request = this.transport.request(
       this.options,
-      success_stream
+      success_stream.bind(this)
     );
 
-    var ef = this.errorFn;
-    request.on('error', function(err) {
-      ef(err);
-    });
-
-    this.request = request;
+    request.on('error', this.errorFn);
     request.end();
     return request;
   }
