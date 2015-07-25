@@ -14,14 +14,13 @@ var core = function(options) {
 
 core.prototype = {
   addToken: function(token) {
-    console.log('addToken', token);
-
     if(typeof token === 'undefined') {
       return;
     }
 
     this.token = token;
     this.hasToken = true;
+    console.log('access_token: ' + token);
   },
 
   setEndpoint: function(type) {
@@ -47,9 +46,8 @@ core.prototype = {
   },
 
   setDatetimeFormat: function(type) {
-    console.log('setDatetimeFormat', type);
-
     this.date_time_format = type === 'unix' ? 'UNIX' : 'RFC3339';
+    console.log('time_format: ' + this.date_time_format);
   },
 
   request: function(path, type, opts) {
@@ -79,17 +77,36 @@ core.prototype = {
     return this.makeRequest(options, data);
   },
 
+  stream: function(path, opts) {
+    console.log('stream', path, options);
+
+    this.urlFormatter.setParameters(opts);
+
+    var url = this.urlFormatter.getUrl(path, false);
+
+    var options = this.urlFormatter.getRequestOptions(url);
+    options.method = 'GET';
+
+    if(this.hasToken) {
+      this.addAuthorizationHeader(options);
+    }
+
+    console.log(options);
+
+    return this.makeStream(options);
+  },
+
   appendBodyData: function(type) {
     var body = ['POST', 'PUT', 'PATCH'];
     return body.indexOf(type) !== -1;
   },
 
   addAuthorizationHeader: function(options) {
-    console.log('addAuthorizationHeader', options);
-
     options.headers = {
       'Authorization': 'Bearer ' + this.token
     };
+
+    console.log('authorization_header: ' + this.token);
   },
 
   makeRequest: function(options, body) {

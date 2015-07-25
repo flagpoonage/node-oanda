@@ -11,7 +11,7 @@ streams.prototype = {
       instruments: util.encodeArray(instruments)
     };
 
-    return this.core.stream('/v1/prices', 'GET', options);
+    return this.core.stream('/v1/prices', options);
   }
 };
 
