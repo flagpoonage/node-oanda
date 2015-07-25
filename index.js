@@ -1,10 +1,10 @@
 var ApiCore = require('./core/api_core');
-var Accounts = require('./routes/accounts');
-var History = require('./routes/history');
-var Orders = require('./routes/orders');
-var Positions = require('./routes/positions');
-var Rates = require('./routes/rates');
-var Trades = require('./routes/trades');
+var Accounts = require('./requests/accounts');
+var History = require('./requests/history');
+var Orders = require('./requests/orders');
+var Positions = require('./requests/positions');
+var Rates = require('./requests/rates');
+var Trades = require('./requests/trades');
 
 var Oanda = function(options) {
   this.core = new ApiCore(options);

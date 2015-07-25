@@ -2,7 +2,7 @@ var util = require('../core/oanda_util');
 
 var orders = function(core) {
   this.core = core;
-}
+};
 
 orders.prototype = {
   getOrdersForAccount: function(account_id, options) {
