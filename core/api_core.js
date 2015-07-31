@@ -7,7 +7,7 @@ var UrlFormatter = require('./url_formatter');
 var core = function(options) {
   options = typeof options === 'undefined' ? {} : options;
 
-  this.addToken(options.token);
+  this.setToken(options.token);
   this.setEndpoint(options.type);
   this.setDatetimeFormat(options.dateFormat);
   this.requestUrlFormatter = new UrlFormatter(this.request_endpoint);
@@ -19,7 +19,7 @@ var core = function(options) {
 };
 
 core.prototype = {
-  addToken: function(token) {
+  setToken: function(token) {
     if(typeof token === 'undefined') {
       return;
     }
