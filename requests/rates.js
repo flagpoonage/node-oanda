@@ -15,7 +15,7 @@ rates.prototype = {
 
   getCurrentPrices: function(instruments, options) {
     options = util.define(options, {});
-    options.account_id = account_id;
+    options.instruments = util.encodeArray(instruments);
 
     return this.core.request(
       '/v1/instruments', 'GET', options);

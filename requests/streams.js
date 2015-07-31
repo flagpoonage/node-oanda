@@ -5,11 +5,10 @@ var streams = function(core) {
 };
 
 streams.prototype = {
-  prices: function(account_id, instruments, session_id) {
-    var options = {
-      accountId: account_id,
-      instruments: util.encodeArray(instruments)
-    };
+  rates: function(account_id, instruments, options) {
+    options = util.define(options, {});
+    options.account_id = account_id;
+    options.instruments = util.encodeArray(instruments);
 
     return this.core.stream('/v1/prices', options);
   }
