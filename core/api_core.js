@@ -1,5 +1,6 @@
 var http = require('http');
 var https = require('https');
+var util = require('./oanda_util');
 var OandaRequest = require('./oanda_request');
 var OandaStream = require('./oanda_stream');
 var UrlFormatter = require('./url_formatter');
@@ -75,12 +76,13 @@ core.prototype = {
 
     var options = this.requestUrlFormatter.getRequestOptions(url);
     options.method = type;
+    options.headers = util.define(options.headers, {});
 
     if(this.hasToken) {
       this.addAuthorizationHeader(options);
     }
 
-    console.log(options);
+    this.addDateFormatHeader(options);
 
     return this.makeRequest(options, data);
   },
@@ -110,16 +112,15 @@ core.prototype = {
   },
 
   addAuthorizationHeader: function(options) {
-    options.headers = {
-      'Authorization': 'Bearer ' + this.token
-    };
+    options.headers['Authorization'] = 'Bearer ' + this.token;
+  },
 
-    console.log('authorization_header: ' + this.token);
+  addDateFormatHeader: function(options) {
+    options.headers['X-Accept-Datetime-Format'] = this.date_time_format;
   },
 
   makeRequest: function(options, body) {
     console.log('makeRequest', options, body);
-
     return new OandaRequest(this.transport, options, body);
   },
 
