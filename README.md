@@ -127,4 +127,14 @@ For complete documentation about each of the endpoints, please see the official 
     api.trades.modifyExistingTrade( account_id, trade_id, options )
     api.trades.closeOpenTrade( account_id, trade_id )
 
-Work in progress...
+###[Positions](http://developer.oanda.com/rest-live/positions/)
+
+    api.positions.getListOfOpenPositions( account_id )
+    api.positions.getPositionForInstrument( account_id, instrument )
+    api.positions.closeExistingPosition( account_id, instrument )
+
+###[History](http://developer.oanda.com/rest-live/transaction-history/)
+
+    api.history.getTransactionHistory( account_id, options )
+    api.history.getInformationForTransaction( account_id, transation_id )
+    api.history.getFullAccountHistory( account_id )
