@@ -2,11 +2,11 @@
 
 *This is a work in progress that I'm making in my spare time. I cant't guarantee that any of it is fast, stable, or even working. There is no OAuth implementation, so you must already have an access token in order to use the API*
 
-This library is a NodeJS wrapper for the Oanda REST API. It provides a simple abstraction layer for making requests and retrieving responses from the API.
+This library is a NodeJS wrapper for the [Oanda REST API](http://developer.oanda.com/rest-live/introduction/). It provides a simple abstraction layer for making requests and retrieving responses from the API.
 
 ##Getting started
 
-To install the library, you will need to have NodeJS and the Node Package Manager (npm) setup on your machine.
+To install the library, you will need to have [NodeJS](https://nodejs.org/download/) and the [Node Package Manager (npm)](https://nodejs.org/download/) setup on your machine.
 
 In the root folder of your project, run the following:
 
@@ -40,13 +40,13 @@ Before you can make requests to the API, you need to create a new Oanda object w
 
 *Required*
 
-The access token for the account you want to access the API with. You must have an account with Oanda in order to use the API.
+The access token for the account you want to access the API with. You must have an [account with Oanda](https://fxtrade.oanda.com/your_account/fxtrade/register/gate?utm_source=oandaapi&utm_medium=link&utm_campaign=devportaldocs_demo) in order to use the API.
 
 **type (string)**
 
 *Optional. Defaults to* `'real'`
 
-The type parameter specifies which of the Oanda endpoints you'd like to use.
+The type parameter specifies which of the [Oanda environments](http://developer.oanda.com/rest-live/development-guide/) you'd like to use.
 
     'sandbox'
     'practice'
@@ -101,15 +101,30 @@ We then add callbacks to the request using the `success` and `error` parameters.
 
 For complete documentation about each of the endpoints, please see the official Oanda documentation. All parameters from the Oanda documentation that are not explicitly listed should be place inside the `options` parameter.
 
-###Rates
+###[Rates](http://developer.oanda.com/rest-live/rates/)
 
     api.rates.getInstrumentList( account_id, options )
     api.rates.getCurrentPrices( instruments, options )
     api.rates.retrieveInstrumentHistory( instrument, options )
 
-###Accounts
+###[Accounts](http://developer.oanda.com/rest-live/accounts/)
 
     api.accounts.getAccountsForUser( username )
     api.accounts.getAccountInformation( account_id )
 
-WIP...
+###[Orders](http://developer.oanda.com/rest-live/orders/)
+
+    api.orders.getOrdersForAccount( account_id, options )
+    api.orders.createNewOrder( account_id, instrument, units, side, type, expiry, price, options )  
+    api.orders.getInformationForOrder( account_id, order_id )
+    api.orders.modifyExistingOrder( account_id, order_id, options )
+    api.orders.closeOrder( account_id, order_id )
+
+###[Trades](http://developer.oanda.com/rest-live/trades/)
+
+    api.trades.getListOfOpenTrades( account_id, options )
+    api.trades.getInformationOnSpecificTrade( account_id, trade_id )
+    api.trades.modifyExistingTrade( account_id, trade_id, options )
+    api.trades.closeOpenTrade( account_id, trade_id )
+
+Work in progress...
