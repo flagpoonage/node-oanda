@@ -6,17 +6,18 @@ var OandaStream = require('./oanda_stream');
 var UrlFormatter = require('./url_formatter');
 
 var core = function(options) {
-  options = typeof options === 'undefined' ? {} : options;
+  options = util.define(options, {});
 
+  this.silent = util.define(options.silent, true);
   this.setToken(options.token);
   this.setEndpoint(options.type);
   this.setDatetimeFormat(options.dateFormat);
   this.requestUrlFormatter = new UrlFormatter(this.request_endpoint);
   this.streamUrlFormatter = new UrlFormatter(this.stream_endpoint);
 
-  console.log();
-  console.log('OANDA Core initialized.');
-  console.log();
+  this.log('');
+  this.log('OANDA Core initialized.');
+  this.log('');
 };
 
 core.prototype = {
@@ -27,40 +28,43 @@ core.prototype = {
 
     this.token = token;
     this.hasToken = true;
-    console.log('access_token: ' + token);
+    this.log('access_token: ' + token);
   },
 
   setEndpoint: function(type) {
 
     switch(type) {
       case 'sandbox':
+        this.endpoint_type = 'sandbox';
         this.request_endpoint = 'http://api-sandbox.oanda.com';
         this.stream_endpoint = 'http://stream-sandbox.oanda.com';
         this.transport = http;
         break;
       case 'practice':
+        this.endpoint_type = 'practice';
         this.request_endpoint = 'https://api-fxpractice.oanda.com';
         this.stream_endpoint = 'https://stream-fxpractice.oanda.com';
         this.transport = https;
         break;
       default:
+        this.endpoint_type = 'real';
         this.request_endpoint = 'https://api-fxtrade.oanda.com';
         this.stream_endpoint = 'https://stream-fxtrade.oanda.com';
         this.transport = https;
         break;
     }
 
-    console.log('request_endpoint: ' + this.request_endpoint);
-    console.log('stream_endpoint: ' + this.stream_endpoint);
+    this.log('request_endpoint: ' + this.request_endpoint);
+    this.log('stream_endpoint: ' + this.stream_endpoint);
   },
 
   setDatetimeFormat: function(type) {
     this.date_time_format = type === 'unix' ? 'UNIX' : 'RFC3339';
-    console.log('time_format: ' + this.date_time_format);
+    this.log('time_format: ' + this.date_time_format);
   },
 
   request: function(path, type, opts) {
-    console.log('request', path, type, opts);
+    this.log('request', path, type, opts);
 
     this.requestUrlFormatter.setParameters(opts);
     var url, data;
@@ -88,8 +92,7 @@ core.prototype = {
   },
 
   stream: function(path, opts) {
-    console.log('stream', path, options);
-
+    this.log('stream', path, options);
     this.streamUrlFormatter.setParameters(opts);
 
     var url = this.streamUrlFormatter.getUrl(path, false);
@@ -100,8 +103,6 @@ core.prototype = {
     if(this.hasToken) {
       this.addAuthorizationHeader(options);
     }
-
-    console.log(options);
 
     return this.makeStream(options);
   },
@@ -120,14 +121,19 @@ core.prototype = {
   },
 
   makeRequest: function(options, body) {
-    console.log('makeRequest', options, body);
+    this.log('makeRequest', options, body);
     return new OandaRequest(this.transport, options, body);
   },
 
   makeStream: function(options) {
-    console.log('makeStream', options);
-
+    this.log('makeStream', options);
     return new OandaStream(this.transport, options);
+  },
+
+  log: function() {
+    if(!this.silent) {
+      console.log.apply(this, Array.prototype.slice.call(arguments, 0));
+    }
   }
 };
 

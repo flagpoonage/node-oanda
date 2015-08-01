@@ -2,7 +2,7 @@ var fn = function(transport, options, data) {
   this.transport = transport;
   this.data = data;
   this.options = options;
-  
+
   this.successFn = function() {};
   this.errorFn = function() {};
 };
@@ -42,7 +42,7 @@ fn.prototype = {
       successWrapper(this.successFn));
 
     request.on('error', function(err) {
-      this.errorFn(res.statusCode, err);
+      this.errorFn(err);
     });
 
     if(typeof this.data !== 'undefined') {

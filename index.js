@@ -6,9 +6,18 @@ var Positions = require('./requests/positions');
 var Rates = require('./requests/rates');
 var Trades = require('./requests/trades');
 var Streams = require('./requests/streams');
+var util = require('./core/oanda_util');
 
 var Oanda = function(options) {
-  this.core = new ApiCore(options);
+  options = util.define(options, {});
+  options.silent = util.define(options.silent, true);
+  
+  this._options = options;
+  this.setCore(ApiCore);
+};
+
+Oanda.prototype.setCore = function(core) {
+  this.core = new core(this._options);
 
   this.accounts = new Accounts(this.core);
   this.history = new History(this.core);

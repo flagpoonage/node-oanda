@@ -1,11 +1,12 @@
 {
   "name": "node-oanda",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "description": "A NodeJS wrapper for the Oanda REST API",
   "main": "index.js",
   "scripts": {
-    "version": "git add .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "core": "mocha test/core",
+    "requests": "mocha test/requests",
+    "test": "npm run core && npm run requests"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,9 @@
     "router": "^1.1.1"
   },
   "devDependencies": {
+    "chai": "^3.2.0",
     "eslint": "^0.24.1",
-    "eslint-plugin-react": "^3.1.0"
+    "eslint-plugin-react": "^3.1.0",
+    "mocha": "^2.2.5"
   }
 }

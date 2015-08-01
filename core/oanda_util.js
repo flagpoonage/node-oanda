@@ -7,6 +7,7 @@ var utility = {
     for(var out = '', i = 0; i < a.length; i++) {
       out += a[i] + (i == a.length - 1 ? '' : ',');
     }
+
     return encodeURIComponent(out);
   }
 };

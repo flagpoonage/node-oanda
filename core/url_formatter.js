@@ -3,9 +3,8 @@ var qs = require('qs');
 var formatter = function(base_url) {
   this.base_url = this.setTrailingSlash(base_url);
   this.setParameters({});
+  this._protocol_split_error = 'Invalid URL, could not split by ://';
 };
-
-var protocol_split_error = "Invalid URL, could not split by ://";
 
 formatter.prototype = {
   setParameters: function(params) {
@@ -31,7 +30,7 @@ formatter.prototype = {
 
     var opt = Object.create(null);
     if(typeof url === 'undefined') {
-      return undefined;
+      return {};
     }
 
     var res = this.protocolSplit(url);
@@ -68,8 +67,8 @@ formatter.prototype = {
 
     var split = url.split('://');
 
-    if(split.length < 2) {
-      throw protocol_split_error;
+    if(split.length < 2 || url.indexOf('://') === 0) {
+      throw this._protocol_split_error;
     }
 
     return {
@@ -82,9 +81,13 @@ formatter.prototype = {
 
     var out = [];
 
+    if(typeof arr === 'undefined') {
+      return out;
+    }
+
     for(var i = 0; i < arr.length; i++) {
-      if(arr[i].length > 0) {
-        out.push(arr[i]);
+      if(arr[i].trim().length > 0) {
+        out.push(arr[i].trim());
       }
     }
 
@@ -112,7 +115,7 @@ formatter.prototype = {
   setTrailingSlash: function(value) {
 
     if(typeof value === 'undefined' || value.length === 0) {
-      return value;
+      return '/';
     }
 
     if(value[value.length - 1] === '/') {
@@ -129,8 +132,11 @@ formatter.prototype = {
   },
 
   isParameter: function(piece) {
+    if(typeof piece === 'string' && piece.length > 1) {
+      return piece[0] === ':';
+    }
 
-    return piece[0] === ':';
+    return false;
   }
 };
 

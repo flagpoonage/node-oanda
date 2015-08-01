@@ -14,7 +14,6 @@ var fn = function(transport, options, stream_options) {
 };
 
 var success_stream = function(response) {
-  var buffer = '';
   response.setEncoding('utf8');
 
   response.on('data', this.dataFn);
