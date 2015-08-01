@@ -1,5 +1,7 @@
 # node-oanda
 
+[![Build Status](https://travis-ci.org/flagpoonage/node-oanda.svg?branch=master)](https://travis-ci.org/flagpoonage/node-oanda)
+
 *This is a work in progress that I'm making in my spare time. I cant't guarantee that any of it is fast, stable, or even working. There is no OAuth implementation, so you must already have an access token in order to use the API*
 
 This library is a NodeJS wrapper for the [Oanda REST API](http://developer.oanda.com/rest-live/introduction/). It provides a simple abstraction layer for making requests and retrieving responses from the API.
