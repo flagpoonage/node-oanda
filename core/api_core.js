@@ -99,7 +99,7 @@ core.prototype = {
 
     var options = this.streamUrlFormatter.getRequestOptions(url);
     options.method = 'GET';
-    options.headers = util.define(options, {});
+    options.headers = util.define(options.headers, {});
 
     if(this.hasToken) {
       this.addAuthorizationHeader(options);
