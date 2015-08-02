@@ -7,7 +7,7 @@ var streams = function(core) {
 streams.prototype = {
   rates: function(account_id, instruments, options) {
     options = util.define(options, {});
-    options.account_id = account_id;
+    options.accountId = account_id;
     options.instruments = util.encodeArray(instruments);
 
     return this.core.stream('/v1/prices', options);
