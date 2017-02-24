@@ -12,6 +12,7 @@ var core = function(options) {
   this.setToken(options.token);
   this.setEndpoint(options.type);
   this.setDatetimeFormat(options.dateFormat);
+  this.setApiVersion(options.version);
   this.requestUrlFormatter = new UrlFormatter(this.request_endpoint);
   this.streamUrlFormatter = new UrlFormatter(this.stream_endpoint);
 
@@ -56,6 +57,24 @@ core.prototype = {
 
     this.log('request_endpoint: ' + this.request_endpoint);
     this.log('stream_endpoint: ' + this.stream_endpoint);
+  },
+
+  setApiVersion: function(version) {
+
+      switch(version) {
+          case 'legacy':
+            this.apiVersion = 'v1';
+            break;
+          case 'v20':
+            this.apiVersion = 'v3';
+            break;
+          default:
+            this.apiVersion = 'v1';
+            break;
+      }
+
+      this.log('apiVersion: ' + this.apiVersion);
+
   },
 
   setDatetimeFormat: function(type) {

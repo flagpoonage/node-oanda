@@ -10,7 +10,7 @@ trades.prototype = {
     options.account_id = account_id;
 
     return this.core.request(
-      '/v1/accounts/:account_id/trades', 'GET', options);
+      `/${this.core.apiVersion}/accounts/:account_id/trades`, 'GET', options);
   },
 
   getInformationOnSpecificTrade: function(account_id, trade_id) {
@@ -20,7 +20,7 @@ trades.prototype = {
     };
 
     return this.core.request(
-      '/v1/accounts/:account_id/trades/:trade_id', 'GET', options);
+      `/${this.core.apiVersion}/accounts/:account_id/trades/:trade_id`, 'GET', options);
   },
 
   modifyExistingTrade: function(account_id, trade_id, options) {
@@ -29,7 +29,7 @@ trades.prototype = {
     options.trade_id = trade_id;
 
     return this.core.request(
-      '/v1/accounts/:account_id/trades/:trade_id', 'PATCH', options);
+      `/${this.core.apiVersion}/accounts/:account_id/trades/:trade_id`, 'PATCH', options);
   },
 
   closeOpenTrade: function(account_id, trade_id) {
@@ -39,7 +39,7 @@ trades.prototype = {
     };
 
     return this.core.request(
-      '/v1/accounts/:account_id/trades/:trade_id', 'DELETE', options);
+      `/${this.core.apiVersion}/accounts/:account_id/trades/:trade_id`, 'DELETE', options);
   }
 };
 

@@ -10,7 +10,7 @@ rates.prototype = {
     options.account_id = account_id;
 
     return this.core.request(
-      '/v1/instruments', 'GET', options);
+      `/${this.core.apiVersion}/instruments`, 'GET', options);
   },
 
   getCurrentPrices: function(instruments, options) {
@@ -18,7 +18,7 @@ rates.prototype = {
     options.instruments = util.encodeArray(instruments);
 
     return this.core.request(
-      '/v1/instruments', 'GET', options);
+      `/${this.core.apiVersion}/instruments`, 'GET', options);
   },
 
   retrieveInstrumentHistory: function(instrument, options) {
@@ -26,7 +26,7 @@ rates.prototype = {
     options.instrument = instrument;
 
     return this.core.request(
-      '/v1/candles', 'GET', options);
+      `/${this.core.apiVersion}/candles`, 'GET', options);
   }
 };
 

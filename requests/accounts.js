@@ -7,8 +7,7 @@ var accounts = function(core) {
 accounts.prototype = {
   getAccountsForUser: function(options) {
     options = util.define(options, {});
-
-    return this.core.request('/v1/accounts', 'GET', options);
+    return this.core.request(`/${this.core.apiVersion}/accounts`, 'GET', options);
   },
 
   getAccountInformation: function(account_id) {
@@ -16,7 +15,7 @@ accounts.prototype = {
       account_id: account_id
     }
 
-    return this.core.request('/v1/accounts/:account_id', 'GET', options);
+    return this.core.request(`/${this.core.apiVersion}/accounts/:account_id`, 'GET', options);
   }
 };
 

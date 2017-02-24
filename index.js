@@ -11,7 +11,7 @@ var util = require('./core/oanda_util');
 var Oanda = function(options) {
   options = util.define(options, {});
   options.silent = util.define(options.silent, true);
-  
+
   this._options = options;
   this.setCore(ApiCore);
 };

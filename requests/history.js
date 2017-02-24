@@ -10,7 +10,7 @@ history.prototype = {
     options.account_id = account_id;
 
     return this.core.request(
-      '/v1/accounts/:account_id/transactions', 'GET', options);
+      `/${this.core.apiVersion}/accounts/:account_id/transactions`, 'GET', options);
   },
 
   getInformationForTransaction: function(account_id, transation_id) {
@@ -20,7 +20,7 @@ history.prototype = {
     };
 
     return this.core.request(
-      '/v1/accounts/:account_id/transactions/:transaction_id', 'GET', options);
+      `/${this.core.apiVersion}/accounts/:account_id/transactions/:transaction_id`, 'GET', options);
   },
 
   getFullAccountHistory: function(account_id) {
@@ -29,7 +29,7 @@ history.prototype = {
     };
 
     return this.core.request(
-      '/v1/accounts/:account_id/alltransactions', 'GET', options);
+      `/${this.core.apiVersion}/accounts/:account_id/alltransactions`, 'GET', options);
   }
 };
 
