@@ -10,7 +10,7 @@ streams.prototype = {
     options.accountId = account_id;
     options.instruments = util.encodeArray(instruments);
 
-    return this.core.stream('/v1/prices', options);
+    return this.core.stream(`/${this.core.apiVersion}/prices`, options);
   }
 };
 
