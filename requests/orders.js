@@ -10,7 +10,7 @@ orders.prototype = {
     options.account_id = account_id;
 
     return this.core.request(
-      '/${this.core.apiVersion}/accounts/:account_id/orders', 'GET', options);
+      `/${this.core.apiVersion}/accounts/:account_id/orders`, 'GET', options);
   },
 
   createNewOrder: function(account_id, instrument, units, side, type, expiry, price, options) {
