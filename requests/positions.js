@@ -9,7 +9,7 @@ positions.prototype = {
     };
 
     return this.core.request(
-      `/#{this.core.apiVersion}/accounts/:account_id/positions`, 'GET', options);
+      `/${this.core.apiVersion}/accounts/:account_id/positions`, 'GET', options);
   },
 
   getPositionForInstrument: function(account_id, instrument) {
@@ -19,7 +19,7 @@ positions.prototype = {
     };
 
     return this.core.request(
-      `/#{this.core.apiVersion}/accounts/:account_id/positions/:instrument`, 'GET', options);
+      `/${this.core.apiVersion}/accounts/:account_id/positions/:instrument`, 'GET', options);
   },
 
   closeExistingPosition: function(account_id, instrument) {
@@ -29,7 +29,7 @@ positions.prototype = {
     };
 
     return this.core.request(
-      `/#{this.core.apiVersion}/accounts/:account_id/positions/:instrument`, 'DELETE', options);
+      `/${this.core.apiVersion}/accounts/:account_id/positions/:instrument`, 'DELETE', options);
   }
 };
 
