@@ -8,8 +8,6 @@ var fn = function(transport, options, data) {
 };
 
 var successWrapper = function(callback) {
-  console.log('successWrapper', callback);
-
   return function(res) {
     var buffer = '';
     res.setEncoding('utf8');
