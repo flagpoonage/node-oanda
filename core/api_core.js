@@ -137,7 +137,8 @@ core.prototype = {
   },
 
   addDateFormatHeader: function(options) {
-    options.headers['X-Accept-Datetime-Format'] = this.date_time_format;
+    var headerName = (this.apiVersion !== 'v3' ? 'X-' : '') + 'Accept-Datetime-Format';
+    options.headers[headerName] = this.date_time_format;
   },
 
   makeRequest: function(options, body) {
