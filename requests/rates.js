@@ -25,8 +25,13 @@ rates.prototype = {
     options = util.define(options, {});
     options.instrument = instrument;
 
-    return this.core.request(
-      `/${this.core.apiVersion}/candles`, 'GET', options);
+    var url = `/${this.core.apiVersion}/candles`;
+    if (this.core.apiVersion === 'v3') {
+      url = `/${this.core.apiVersion}/instruments/${instrument}/candles`;
+      delete options.instrument;
+    }
+
+    return this.core.request(url, 'GET', options);
   }
 };
 
