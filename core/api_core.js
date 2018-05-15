@@ -4,6 +4,7 @@ var util = require('./oanda_util');
 var OandaRequest = require('./oanda_request');
 var OandaStream = require('./oanda_stream');
 var UrlFormatter = require('./url_formatter');
+const qs = require('qs');
 
 var core = function(options) {
   options = util.define(options, {});
@@ -90,7 +91,7 @@ core.prototype = {
 
     if(this.appendBodyData(type)) {
       url = this.requestUrlFormatter.getUrl(path, true);
-      data = this.requestUrlFormatter.createParamString(this.urlFormmater.params);
+      data = qs.stringify(opts);
     }
     else{
       url = this.requestUrlFormatter.getUrl(path, false);
