@@ -4,6 +4,7 @@ var util = require('./oanda_util');
 var OandaRequest = require('./oanda_request');
 var OandaStream = require('./oanda_stream');
 var UrlFormatter = require('./url_formatter');
+
 const qs = require('qs');
 
 var core = function(options) {
