@@ -1,0 +1,11 @@
+{
+  "practice": {
+    "rest": "api-fxpractice.oanda.com",
+    "stream": "stream-fxpractice.oanda.com"
+  },
+
+  "real": {
+    "rest": "api-fxtrade.oanda.com",
+    "stream": "stream-fxtrade.oanda.com"
+  }
+}
