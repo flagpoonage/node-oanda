@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/flagpoonage/node-oanda.svg?branch=master)](https://travis-ci.org/flagpoonage/node-oanda)
 
-*This is a work in progress that I'm making in my spare time. I cant't guarantee that any of it is fast, stable, or even working. There is no OAuth implementation, so you must already have an access token in order to use the API*
+**A new version is being developed [over here](https://github.com/flagpoonage/node-oanda/tree/v2) which will replace this version eventually. It has Promises, compatible with async/await, and it can actually do POST, PUT and PATCH requests without breaking! It implements the [Oanda REST-V20 API](https://developer.oanda.com/rest-live-v20/introduction/) and should hopefully be less complicated.**
 
 This library is a NodeJS wrapper for the [Oanda REST API](http://developer.oanda.com/rest-live/introduction/). It provides a simple abstraction layer for making requests and retrieving responses from the API.
 
