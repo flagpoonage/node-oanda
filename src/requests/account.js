@@ -8,7 +8,7 @@ module.exports = class AccountAPI {
    * This API can be used to access all Oanda V2 Accounts endpoints
    * https://developer.oanda.com/rest-live-v20/account-ep/
    * 
-   * @param {OandaAPI} api 
+   * @param {function} request 
    */
   constructor (request) {
     this.request = request;
