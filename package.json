@@ -4,9 +4,7 @@
   "description": "A NodeJS wrapper for the Oanda REST API",
   "main": "index.js",
   "scripts": {
-    "core": "mocha test/core",
-    "requests": "mocha test/requests",
-    "test": "npm run core && npm run requests"
+    "test": "mocha test/"
   },
   "repository": {
     "type": "git",
