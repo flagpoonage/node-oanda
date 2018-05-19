@@ -186,7 +186,8 @@ module.exports = class OandaAPI {
    */
   _generateRequestPathOptions (method, options, prefix) {
     const output = {
-      method: method
+      method: method,
+      path: options.path
     };
 
     // Replace URL params with specified values
@@ -208,12 +209,15 @@ module.exports = class OandaAPI {
         }
 
         acc.push(`${key}=${val}`);
+        return acc;
       }, []);
 
       // Attach query string to the output path.
-      output.path = qs_params.length > 0 ? `${output.path}?${qs_params.join('&')}` : ouput.path;
+      output.path = qs_params.length > 0 
+        ? `${output.path}?${qs_params.join('&')}` 
+        : output.path;
     }
-    
+
     output.path = `${prefix}${output.path}`;
     
     return output;
