@@ -58,6 +58,9 @@ module.exports = class AccountAPI {
       params: {
         account_id: account_id
       },
+      query: {
+        instruments: instruments
+      },
       callback: callback
     });
   }
@@ -86,7 +89,9 @@ module.exports = class AccountAPI {
       method: HTTP_METHOD.GET,
       path: ROUTES.account.getAccountChanges,
       params: {
-        account_id: account_id,
+        account_id: account_id
+      },
+      query: {
         sinceTransactionID: sinceTransactionID
       },
       callback: callback

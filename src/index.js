@@ -189,32 +189,29 @@ module.exports = class OandaAPI {
       method: method
     };
 
-    // If there's no parameters, we just return the path as is.
-    if (!options.params) {
-      output.path = `${prefix}${options.path}`;
-      return output;
+    // Replace URL params with specified values
+    if (options.params) {
+      // Parse individual route parameters
+      Object.keys(options.params).forEach(key => {
+        output.path = output.path.replace(new RegExp(`({${key}})`, 'g'), options.params[key]);
+      });
     }
 
-    let param_keys = Object.keys(options.params);
+    // Add any additional querystring parameters
+    if (options.query) {
+      let qs_params = Object.keys(options.query).reduce((acc, key) => {
+        let val = options.query[key];
 
-    output.path = options.path;
-    
-    let query = [];
+        if (Array.isArray(val)) {
+          // Turn array into a csv
+          val = val.join();
+        }
 
-    // Parse individual route parameters
-    param_keys.forEach(key => {
-      let prev_path = output.path;
-      output.path = output.path.replace(new RegExp(`({${key}})`, 'g'), options.params[key]);
-      
-      // If no parameter was added, attach to the query string instead
-      if (output.path === prev_path && typeof options.params[key] !== 'undefined') {
-        query.push(`${key}=${options.params[key]}`);
-      }
-    });
+        acc.push(`${key}=${val}`);
+      }, []);
 
-    if (query.length > 0) {
-      // Attach any additional query string parameters
-      output.path = `${output.path}?${query.join('&')}`;
+      // Attach query string to the output path.
+      output.path = qs_params.length > 0 ? `${output.path}?${qs_params.join('&')}` : ouput.path;
     }
     
     output.path = `${prefix}${output.path}`;
