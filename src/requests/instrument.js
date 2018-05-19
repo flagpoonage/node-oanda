@@ -20,6 +20,9 @@ module.exports = class InstrumentAPI {
     return this.request({
       method: HTTP_METHOD.GET,
       path: ROUTES.instrument.getCandles,
+      params: {
+        instrument: instrument
+      },
       query: query,
       callback: callback
     });
@@ -31,6 +34,9 @@ module.exports = class InstrumentAPI {
     return this.request({
       method: HTTP_METHOD.GET,
       path: ROUTES.instrument.getOrderBook,
+      params: {
+        instrument: instrument
+      },
       query: query,
       callback: callback
     });
@@ -42,6 +48,9 @@ module.exports = class InstrumentAPI {
     return this.request({
       method: HTTP_METHOD.GET,
       path: ROUTES.instrument.getPositionBook,
+      params: {
+        instrument: instrument
+      },
       query: query,
       callback: callback
     });
