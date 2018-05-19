@@ -1,6 +1,6 @@
 {
   "name": "node-oanda",
-  "version": "1.1.21",
+  "version": "2.0.1",
   "description": "A NodeJS wrapper for the Oanda REST API",
   "main": "index.js",
   "scripts": {
@@ -19,16 +19,12 @@
     "api",
     "nodejs"
   ],
-  "author": "= <pokinoice@live.com>",
+  "author": "James Hay = <pokinoice@live.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/flagpoonage/node-oanda/issues"
   },
   "homepage": "https://github.com/flagpoonage/node-oanda",
-  "dependencies": {
-    "qs": "^3.1.0",
-    "router": "^1.1.1"
-  },
   "devDependencies": {
     "chai": "^4.1.2",
     "eslint": "^4.19.1",
