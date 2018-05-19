@@ -2,7 +2,7 @@ const ROUTES = require('../routes');
 const utils = require('../utils');
 const { HTTP_METHOD } = require('../constant');
 
-module.exports = class AccountAPI {
+module.exports = class InstrumentAPI {
 
   /**
    * This API can be used to access all Oanda V2 Instrument endpoints
