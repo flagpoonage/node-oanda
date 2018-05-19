@@ -2,10 +2,10 @@
   "account": {
     "getAccounts": "/accounts",
     "getAccount": "/accounts/{account_id}",
-    "getAccountSummary": "/accounts/{account_id}/summary",
-    "getAccountInstruments": "/accounts/{account_id}/instruments",
-    "setAccountConfiguration": "/accounts/{account_id}/configuration",
-    "getAccountChanges": "/accounts/{account_id}/changes"
+    "getSummary": "/accounts/{account_id}/summary",
+    "getInstruments": "/accounts/{account_id}/instruments",
+    "setConfiguration": "/accounts/{account_id}/configuration",
+    "getChanges": "/accounts/{account_id}/changes"
   },
 
   "instrument": {

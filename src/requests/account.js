@@ -35,12 +35,12 @@ module.exports = class AccountAPI {
     });
   }
 
-  getAccountSummary (account_id, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the getAccountSummary endpoint');
+  getSummary (account_id, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the getSummary endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.account.getAccountSummary,
+      path: ROUTES.account.getSummary,
       params: {
         account_id: account_id
       },
@@ -48,25 +48,26 @@ module.exports = class AccountAPI {
     });
   }
 
-  getAccountInstruments (account_id, instruments, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the getAccountInstruments endpoint');
-    utils.assert(Array.isArray(instruments), 'An array of instruments must be supplied to the getAccountInstruments endpoint');
+  getInstruments (account_id, query, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the getInstruments endpoint');
+
+    if (query && query.instruments) {
+      utils.assert(Array.isArray(query.instruments), 'Instruments must be an Array to the getInstruments endpoint');
+    }
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.account.getAccountInstruments,
+      path: ROUTES.account.getInstruments,
       params: {
         account_id: account_id
       },
-      query: {
-        instruments: instruments
-      },
+      query: query,
       callback: callback
     });
   }
 
-  setAccountConfiguration (account_id, alias, marginRate, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the getAccountInstruments endpoint');
+  setConfiguration (account_id, data, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the setConfiguration endpoint');
 
     return this.request({
       method: HTTP_METHOD.PATCH,
@@ -74,16 +75,13 @@ module.exports = class AccountAPI {
       params: {
         account_id: account_id
       },
-      data: {
-        alias: alias,
-        marginRate: marginRate
-      },
+      data: data,
       callback: callback
     });
   }
 
-  getAccountChanges (account_id, sinceTransactionID, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the getAccountInstruments endpoint');
+  getChanges (account_id, query, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the getChanges endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
@@ -91,9 +89,7 @@ module.exports = class AccountAPI {
       params: {
         account_id: account_id
       },
-      query: {
-        sinceTransactionID: sinceTransactionID
-      },
+      query: query,
       callback: callback
     });
   }
