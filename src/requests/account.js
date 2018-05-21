@@ -14,47 +14,47 @@ module.exports = class AccountAPI {
     this.request = request;
   }
 
-  getAccounts (callback) {
+  list (callback) {
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.account.getAccounts
+      path: ROUTES.account.list
     }, callback);
   }
 
-  getAccount (account_id, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the getAccount endpoint');
+  get (account_id, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the get endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.account.getAccount,
+      path: ROUTES.account.get,
       params: {
         account_id: account_id
       }
     }, callback);
   }
 
-  getSummary (account_id, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the getSummary endpoint');
+  summary (account_id, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the summary endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.account.getSummary,
+      path: ROUTES.account.summary,
       params: {
         account_id: account_id
       }
     }, callback);
   }
 
-  getInstruments (account_id, query, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the getInstruments endpoint');
+  instruments (account_id, query, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the instruments endpoint');
 
     if (query && query.instruments) {
-      utils.assert(Array.isArray(query.instruments), 'Instruments must be an Array to the getInstruments endpoint');
+      utils.assert(Array.isArray(query.instruments), 'Instruments must be an Array to the instruments endpoint');
     }
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.account.getInstruments,
+      path: ROUTES.account.instruments,
       params: {
         account_id: account_id
       },
@@ -62,12 +62,12 @@ module.exports = class AccountAPI {
     }, callback);
   }
 
-  setConfiguration (account_id, data, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the setConfiguration endpoint');
+  configuration (account_id, data, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the configuration endpoint');
 
     return this.request({
       method: HTTP_METHOD.PATCH,
-      path: ROUTES.account.setAccountConfiguration,
+      path: ROUTES.account.configuration,
       params: {
         account_id: account_id
       },
@@ -75,12 +75,12 @@ module.exports = class AccountAPI {
     }, callback);
   }
 
-  getChanges (account_id, query, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the getChanges endpoint');
+  changes (account_id, query, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the changes endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.account.getAccountChanges,
+      path: ROUTES.account.changes,
       params: {
         account_id: account_id
       },
