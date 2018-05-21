@@ -19,8 +19,8 @@
     "getOrders": "/accounts/{account_id}/orders",
     "getPendingOrders": "/accounts/{account_id}/orders",
     "getOrder": "/accounts/{account_id}/orders/{order_specifier}",
-    "replaceOrder": "/accounts/{account_id}/orders/{order_specifier}",
+    "updateOrder": "/accounts/{account_id}/orders/{order_specifier}",
     "cancelOrder": "/accounts/{account_id}/orders/{order_specifier}/cancel",
-    "updateOrder": "/accounts/{account_id}/orders/{order_specifier}/clientExtensions"
+    "updateClientExtensions": "/accounts/{account_id}/orders/{order_specifier}/clientExtensions"
   }
 }
