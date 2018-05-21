@@ -13,6 +13,7 @@ const OrderAPI = require('./requests/order');
 const TradeAPI = require('./requests/trade');
 const PositionAPI = require('./requests/position');
 const TransactionAPI = require('./requests/transaction');
+const PricingAPI = require('./requests/pricing');
 const HttpsRequest = require('./https-request');
 
 const ENV_VALUES = Object.values(OANDA_ENV);
@@ -35,6 +36,7 @@ module.exports = class OandaAPI {
     this.trade = new TradeAPI(this._request);
     this.position = new PositionAPI(this._request);
     this.transaction = new TransactionAPI(this._request);
+    this.pricing = new PricingAPI(this._request);
   }
 
   /**
