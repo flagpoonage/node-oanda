@@ -38,5 +38,13 @@
     "listOpenPositions": "/accounts/{account_id}/openPositions",
     "getInstrumentPosition": "/accounts/{account_id}/positions/{instrument}",
     "closePosition": "/accounts/{account_id}/positions/{instrument}/close"
+  },
+
+  "transaction": {
+    "listTransactions": "/accounts/{account_id}/transactions",
+    "getTransaction": "/accounts/{account_id}/transactions/{transaction_id}",
+    "listTransactionsInIDRange": "/accounts/{account_id}/transactions/idrange",
+    "listTransactionsSinceID": "/accounts/{account_id}/transactions/sinceid",
+    "streamTransactions": "/accounts/{account_id}/transactions/stream"
   }
 }
