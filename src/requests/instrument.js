@@ -23,9 +23,8 @@ module.exports = class InstrumentAPI {
       params: {
         instrument: instrument
       },
-      query: query,
-      callback: callback
-    });
+      query: query
+    }, callback);
   }
 
   getOrderBook (instrument, query, callback) {
@@ -37,9 +36,8 @@ module.exports = class InstrumentAPI {
       params: {
         instrument: instrument
       },
-      query: query,
-      callback: callback
-    });
+      query: query
+    }, callback);
   }
 
   getPositionBook (instrument, query, callback) {
@@ -51,9 +49,8 @@ module.exports = class InstrumentAPI {
       params: {
         instrument: instrument
       },
-      query: query,
-      callback: callback
-    });
+      query: query
+    }, callback);
   }
 
 

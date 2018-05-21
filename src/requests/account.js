@@ -17,9 +17,8 @@ module.exports = class AccountAPI {
   getAccounts (callback) {
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.account.getAccounts,
-      callback: callback
-    });
+      path: ROUTES.account.getAccounts
+    }, callback);
   }
 
   getAccount (account_id, callback) {
@@ -30,9 +29,8 @@ module.exports = class AccountAPI {
       path: ROUTES.account.getAccount,
       params: {
         account_id: account_id
-      },
-      callback: callback
-    });
+      }
+    }, callback);
   }
 
   getSummary (account_id, callback) {
@@ -43,9 +41,8 @@ module.exports = class AccountAPI {
       path: ROUTES.account.getSummary,
       params: {
         account_id: account_id
-      },
-      callback: callback
-    });
+      }
+    }, callback);
   }
 
   getInstruments (account_id, query, callback) {
@@ -61,9 +58,8 @@ module.exports = class AccountAPI {
       params: {
         account_id: account_id
       },
-      query: query,
-      callback: callback
-    });
+      query: query
+    }, callback);
   }
 
   setConfiguration (account_id, data, callback) {
@@ -75,9 +71,8 @@ module.exports = class AccountAPI {
       params: {
         account_id: account_id
       },
-      data: data,
-      callback: callback
-    });
+      data: data
+    }, callback);
   }
 
   getChanges (account_id, query, callback) {
@@ -89,8 +84,7 @@ module.exports = class AccountAPI {
       params: {
         account_id: account_id
       },
-      query: query,
-      callback: callback
-    });
+      query: query
+    }, callback);
   }
 };
