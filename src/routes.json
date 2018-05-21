@@ -1,35 +1,42 @@
 {
   "account": {
-    "list": "/accounts",
-    "get": "/accounts/{account_id}",
-    "summary": "/accounts/{account_id}/summary",
-    "instruments": "/accounts/{account_id}/instruments",
-    "configuration": "/accounts/{account_id}/configuration",
-    "changes": "/accounts/{account_id}/changes"
+    "listAccounts": "/accounts",
+    "getAccount": "/accounts/{account_id}",
+    "getAccountSummary": "/accounts/{account_id}/summary",
+    "getInstruments": "/accounts/{account_id}/instruments",
+    "updateConfiguration": "/accounts/{account_id}/configuration",
+    "getChanges": "/accounts/{account_id}/changes"
   },
 
   "instrument": {
-    "candles": "/instruments/{instrument}/candles",
-    "orderBook": "/instruments/{instrument}/orderBook",
-    "positionBook": "/instruments/{instrument}/positionBook"
+    "getCandles": "/instruments/{instrument}/candles",
+    "getOrderBook": "/instruments/{instrument}/orderBook",
+    "getPositionBook": "/instruments/{instrument}/positionBook"
   },
 
   "order": {
-    "create": "/accounts",
-    "list": "/accounts/{account_id}/orders",
-    "listPending": "/accounts/{account_id}/orders",
-    "get": "/accounts/{account_id}/orders/{order_specifier}",
-    "update": "/accounts/{account_id}/orders/{order_specifier}",
-    "cancel": "/accounts/{account_id}/orders/{order_specifier}/cancel",
-    "clientExtensions": "/accounts/{account_id}/orders/{order_specifier}/clientExtensions"
+    "createOrder": "/accounts",
+    "listOrders": "/accounts/{account_id}/orders",
+    "listPendingOrders": "/accounts/{account_id}/orders",
+    "getOrder": "/accounts/{account_id}/orders/{order_specifier}",
+    "updateOrder": "/accounts/{account_id}/orders/{order_specifier}",
+    "cancelOrder": "/accounts/{account_id}/orders/{order_specifier}/cancel",
+    "updateClientExtensions": "/accounts/{account_id}/orders/{order_specifier}/clientExtensions"
   },
 
   "trade": {
-    "list": "/accounts/{account_id}/trades",
-    "listOpen": "/accounts/{account_id}/openTrades",
-    "get": "/accounts/{account_id}/trades/{trade_specifier}",
-    "close": "/accounts/{account_id}/trades/{trade_specifier}/close",
-    "clientExtensions": "/accounts/{account_id}/trades/{trade_specifier}/clientExtensions",
-    "orders": "/accounts/{account_id}/trades/{trade_specifier}/orders"
+    "listTrades": "/accounts/{account_id}/trades",
+    "listOpenTrades": "/accounts/{account_id}/openTrades",
+    "getTrade": "/accounts/{account_id}/trades/{trade_specifier}",
+    "closeTrade": "/accounts/{account_id}/trades/{trade_specifier}/close",
+    "updateclientExtensions": "/accounts/{account_id}/trades/{trade_specifier}/clientExtensions",
+    "updateTradeOrders": "/accounts/{account_id}/trades/{trade_specifier}/orders"
+  },
+
+  "position": {
+    "listPositions": "/accounts/{account_id}/positions",
+    "listOpenPositions": "/accounts/{account_id}/openPositions",
+    "getInstrumentPosition": "/accounts/{account_id}/positions/{instrument}",
+    "closePosition": "/accounts/{account_id}/positions/{instrument}/close"
   }
 }

@@ -14,12 +14,12 @@ module.exports = class InstrumentAPI {
     this.request = request;
   }
 
-  candles (instrument, query, callback) {
-    utils.assert(instrument, 'An instrument must be supplied to the candles endpoint');
+  getCandles (instrument, query, callback) {
+    utils.assert(instrument, 'An instrument must be supplied to the getCandles endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.instrument.candles,
+      path: ROUTES.instrument.getCandles,
       params: {
         instrument: instrument
       },
@@ -27,12 +27,12 @@ module.exports = class InstrumentAPI {
     }, callback);
   }
 
-  orderBook (instrument, query, callback) {
-    utils.assert(instrument, 'An instrument must be supplied to the orderBook endpoint');
+  getOrderBook (instrument, query, callback) {
+    utils.assert(instrument, 'An instrument must be supplied to the getOrderBook endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.instrument.orderBook,
+      path: ROUTES.instrument.getOrderBook,
       params: {
         instrument: instrument
       },
@@ -40,12 +40,12 @@ module.exports = class InstrumentAPI {
     }, callback);
   }
 
-  positionBook (instrument, query, callback) {
-    utils.assert(instrument, 'An instrument must be supplied to the positionBook endpoint');
+  getPositionBook (instrument, query, callback) {
+    utils.assert(instrument, 'An instrument must be supplied to the getPositionBook endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.instrument.positionBook,
+      path: ROUTES.instrument.getPositionBook,
       params: {
         instrument: instrument
       },

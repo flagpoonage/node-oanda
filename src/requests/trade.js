@@ -5,7 +5,7 @@ const { HTTP_METHOD } = require('../constant');
 module.exports = class TradeAPI {
 
   /**
-   * This API can be used to access all Oanda V2 Instrument endpoints
+   * This API can be used to access all Oanda V2 Trade endpoints
    * https://developer.oanda.com/rest-live-v20/trade-ep/
    * 
    * @param {function} request 
@@ -14,12 +14,12 @@ module.exports = class TradeAPI {
     this.request = request;
   }
 
-  list (account_id, query, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the list endpoint');
+  listTrades (account_id, query, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the listTrades endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.trade.list,
+      path: ROUTES.trade.listTrades,
       params: {
         account_id: account_id
       },
@@ -27,25 +27,25 @@ module.exports = class TradeAPI {
     }, callback);
   }
 
-  listOpen (account_id, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the listOpen endpoint');
+  listOpenTrades (account_id, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the listOpenTrades endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.trade.listOpen,
+      path: ROUTES.trade.listOpenTrades,
       params: {
         account_id: account_id
       }
     }, callback);
   }
 
-  get (account_id, trade_specifier, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the get endpoint');
-    utils.assert(trade_specifier, 'A trade_specifier must be supplied to the get endpoint');
+  getTrade (account_id, trade_specifier, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the getTrade endpoint');
+    utils.assert(trade_specifier, 'A trade_specifier must be supplied to the getTrade endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.trade.get,
+      path: ROUTES.trade.getTrade,
       params: {
         account_id: account_id,
         trade_specifier: trade_specifier
@@ -83,13 +83,13 @@ module.exports = class TradeAPI {
     }, callback);
   }
 
-  orders (account_id, trade_specifier, data, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the orders endpoint');
-    utils.assert(trade_specifier, 'A trade_specifier must be supplied to the orders endpoint');
+  updateTradeOrders (account_id, trade_specifier, data, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the updateTradeOrders endpoint');
+    utils.assert(trade_specifier, 'A trade_specifier must be supplied to the updateTradeOrders endpoint');
 
     return this.request({
       method: HTTP_METHOD.PUT,
-      path: ROUTES.trade.orders,
+      path: ROUTES.trade.updateTradeOrders,
       params: {
         account_id: account_id,
         trade_specifier: trade_specifier

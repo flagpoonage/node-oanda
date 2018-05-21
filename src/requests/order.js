@@ -5,7 +5,7 @@ const { HTTP_METHOD } = require('../constant');
 module.exports = class OrderAPI {
 
   /**
-   * This API can be used to access all Oanda V2 Instrument endpoints
+   * This API can be used to access all Oanda V2 Order endpoints
    * https://developer.oanda.com/rest-live-v20/order-ep/
    * 
    * @param {function} request 
@@ -14,13 +14,13 @@ module.exports = class OrderAPI {
     this.request = request;
   }
 
-  create (account_id, data, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the create endpoint');
-    utils.assert(data && data.order, 'An order is required for the create endpoint');
+  createOrder (account_id, data, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the createOrder endpoint');
+    utils.assert(data && data.order, 'An order is required for the createOrder endpoint');
 
     return this.request({
       method: HTTP_METHOD.POST,
-      path: ROUTES.order.create,
+      path: ROUTES.order.createOrder,
       params: {
         account_id: account_id
       },
@@ -28,37 +28,37 @@ module.exports = class OrderAPI {
     }, callback);
   }
 
-  list (account_id, query, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the list endpoint');
+  listOrders (account_id, query, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the listOrders endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.order.list,
+      path: ROUTES.order.listOrders,
       params: {
         account_id: account_id
       }
     }, callback);
   }
 
-  listPending (account_id, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the listPending endpoint');
+  listPendingOrders (account_id, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the listPendingOrders endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.order.listPending,
+      path: ROUTES.order.listPendingOrders,
       params: {
         account_id: account_id
       }
     }, callback);
   }
 
-  get (account_id, order_specifier, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the get endpoint');
-    utils.assert(order_specifier, 'An order_specifier must be supplied to the get endpoint');
+  getOrder (account_id, order_specifier, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the getOrder endpoint');
+    utils.assert(order_specifier, 'An order_specifier must be supplied to the getOrder endpoint');
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.order.get,
+      path: ROUTES.order.getOrder,
       params: {
         account_id: account_id,
         order_specifier: order_specifier
@@ -66,13 +66,13 @@ module.exports = class OrderAPI {
     }, callback);
   }
 
-  update (account_id, order_specifier, data, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the update endpoint');
-    utils.assert(order_specifier, 'An order_specifier must be supplied to the update endpoint');
+  updateOrder (account_id, order_specifier, data, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the updateOrder endpoint');
+    utils.assert(order_specifier, 'An order_specifier must be supplied to the updateOrder endpoint');
 
     return this.request({
       method: HTTP_METHOD.PUT,
-      path: ROUTES.order.update,
+      path: ROUTES.order.updateOrder,
       params: {
         account_id: account_id,
         order_specifier: order_specifier
@@ -82,13 +82,13 @@ module.exports = class OrderAPI {
 
   }
 
-  cancel (account_id, order_specifier, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the cancel endpoint');
-    utils.assert(order_specifier, 'An order_specifier must be supplied to the cancel endpoint');
+  cancelOrder (account_id, order_specifier, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the cancelOrder endpoint');
+    utils.assert(order_specifier, 'An order_specifier must be supplied to the cancelOrder endpoint');
 
     return this.request({
       method: HTTP_METHOD.PUT,
-      path: ROUTES.order.cancel,
+      path: ROUTES.order.cancelOrder,
       params: {
         account_id: account_id,
         order_specifier: order_specifier
@@ -97,13 +97,13 @@ module.exports = class OrderAPI {
 
   }
 
-  clientExtensions (account_id, order_specifier, data, callback) {
-    utils.assert(account_id, 'An account_id must be supplied to the clientExtensions endpoint');
-    utils.assert(order_specifier, 'An order_specifier must be supplied to the clientExtensions endpoint');
+  updateClientExtensions (account_id, order_specifier, data, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the updateClientExtensions endpoint');
+    utils.assert(order_specifier, 'An order_specifier must be supplied to the updateClientExtensions endpoint');
 
     return this.request({
       method: HTTP_METHOD.PUT,
-      path: ROUTES.order.clientExtensions,
+      path: ROUTES.order.updateClientExtensions,
       params: {
         account_id: account_id,
         order_specifier: order_specifier
