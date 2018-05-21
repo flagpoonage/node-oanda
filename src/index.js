@@ -9,6 +9,7 @@ const {
 const urls = require('./urls');
 const AccountAPI = require('./requests/account');
 const InstrumentAPI = require('./requests/instrument');
+const OrderAPI = require('./requests/order');
 const HttpsRequest = require('./https-request');
 
 const ENV_VALUES = Object.values(OANDA_ENV);
@@ -27,6 +28,7 @@ module.exports = class OandaAPI {
 
     this.accounts = new AccountAPI(this._request);
     this.instruments = new InstrumentAPI(this._request);
+    this.orders = new OrderAPI(this._request);
   }
 
   /**
