@@ -15,7 +15,7 @@
   },
 
   "order": {
-    "createOrder": "/accounts",
+    "createOrder": "/accounts/{account_id}/orders",
     "listOrders": "/accounts/{account_id}/orders",
     "listPendingOrders": "/accounts/{account_id}/orders",
     "getOrder": "/accounts/{account_id}/orders/{order_specifier}",

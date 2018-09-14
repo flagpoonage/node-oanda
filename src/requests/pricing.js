@@ -2,7 +2,7 @@ const ROUTES = require('../routes');
 const utils = require('../utils');
 const { HTTP_METHOD } = require('../constant');
 
-module.exports = class TradeAPI {
+module.exports = class PricingAPI {
 
   /**
    * This API can be used to access all Oanda V2 Pricing endpoints
@@ -23,7 +23,7 @@ module.exports = class TradeAPI {
 
     return this.request({
       method: HTTP_METHOD.GET,
-      path: ROUTES.position.getInstrumentPricing,
+      path: ROUTES.pricing.getInstrumentPricing,
       params: {
         account_id: account_id
       },
