@@ -1,7 +1,8 @@
 const https = require('https');
+const { API_TYPE } = require('./constant');
 
 // Parses the raw HTTP response into a useable format.
-const responseParser = (request_options, body) => (resolver, res) => {    
+const responseParser = (request_options, body) => (resolver, res) => {
   var buffer = '';
   res.setEncoding('utf8');
 
@@ -18,8 +19,7 @@ const responseParser = (request_options, body) => (resolver, res) => {
     try {
       data_object = JSON.parse(buffer);
       valid_json = true;
-    }
-    catch (exception) {
+    } catch (exception) {
       console.warn('Invalid JSON data returned from successful response');
     }
 
@@ -28,7 +28,7 @@ const responseParser = (request_options, body) => (resolver, res) => {
       headers: res.headers,
       statusCode: res.statusCode,
       isJSON: valid_json,
-      data: data_object
+      data: data_object,
     };
 
     if (body) {
@@ -42,9 +42,14 @@ const responseParser = (request_options, body) => (resolver, res) => {
 module.exports = (options, callback) => {
   let parser = responseParser(options, options.data);
   let data = options.data;
-
+  let isStream = options.apiType && options.apiType === API_TYPE.STREAM;
   // Remove it so it's not sent to the https module. That may react badly.
   delete options.data;
+  delete options.apiType;
+  // If api type is streaming then let end user handle the callback stream of data.
+  if (isStream) {
+    return https.request(options, callback);
+  }
 
   if (typeof callback === 'function') {
     // Generate the request using callbacs.
@@ -54,7 +59,7 @@ module.exports = (options, callback) => {
     rq.on('error', e => {
       callback(null, e);
     });
-    
+
     // If it's been assigned a content type header then it's a payload
     // request
     if (options.headers['Content-Type']) {
@@ -72,13 +77,13 @@ module.exports = (options, callback) => {
     let rq = https.request(options, res => parser(resolve, res));
 
     rq.on('error', reject);
-    
+
     // If it's been assigned a content type header then it's a payload
     // request
     if (options.headers['Content-Type']) {
       rq.write(data);
     }
-  
+
     rq.end();
   });
 };

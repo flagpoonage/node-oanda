@@ -16,8 +16,14 @@ const HTTP_METHOD = {
   DELETE: 'DELETE'
 };
 
+const API_TYPE = {
+  STREAM: 'STREAM',
+  REST: 'REST'
+};
+
 module.exports = {
   OANDA_ENV,
   OANDA_DATEFORMAT,
-  HTTP_METHOD
+  HTTP_METHOD,
+  API_TYPE
 };
