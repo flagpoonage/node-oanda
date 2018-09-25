@@ -52,7 +52,8 @@ module.exports = class OandaAPI {
 
     if (configuration.accessToken) {
       this.setAccessToken(configuration.accessToken);
-    } else {
+    } 
+    else {
       this.removeAccessToken(configuration.accessToken);
     }
 

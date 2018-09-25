@@ -19,7 +19,8 @@ const responseParser = (request_options, body) => (resolver, res) => {
     try {
       data_object = JSON.parse(buffer);
       valid_json = true;
-    } catch (exception) {
+    } 
+    catch (exception) {
       console.warn('Invalid JSON data returned from successful response');
     }
 
