@@ -1,9 +1,10 @@
 const utils = require('./utils');
 
-const { 
-  OANDA_ENV, 
-  OANDA_DATEFORMAT, 
-  HTTP_METHOD 
+const {
+  OANDA_ENV,
+  OANDA_DATEFORMAT,
+  HTTP_METHOD,
+  API_TYPE,
 } = require('./constant');
 
 const urls = require('./urls');
@@ -21,12 +22,11 @@ const DATEFORMAT_VALUES = Object.values(OANDA_DATEFORMAT);
 const HTTP_METHOD_VALUES = Object.values(HTTP_METHOD);
 
 module.exports = class OandaAPI {
-
   /**
    * This class can be used to make requests to the Oanda V2 API.
-   * @param {object} options 
+   * @param {object} options
    */
-  constructor (options) {
+  constructor(options) {
     this.setOptions(options);
     this._request = this._request.bind(this);
 
@@ -41,18 +41,18 @@ module.exports = class OandaAPI {
 
   /**
    * Sets the configuration options for this instance of the Oanda API
-   * @param {object} configuration 
+   * @param {object} configuration
    */
-  setOptions (configuration) {
+  setOptions(configuration) {
     configuration = configuration || {};
     configuration.environment = configuration.environment || OANDA_ENV.PRACTICE;
     configuration.dateFormat = configuration.dateFormat || OANDA_DATEFORMAT.RFC;
     configuration.accessToken = configuration.accessToken || '';
     configuration.routePrefix = configuration.routePrefix || '/v3';
-  
+
     if (configuration.accessToken) {
       this.setAccessToken(configuration.accessToken);
-    }
+    } 
     else {
       this.removeAccessToken(configuration.accessToken);
     }
@@ -60,7 +60,7 @@ module.exports = class OandaAPI {
     this.setEnvironment(configuration.environment);
     this.setDateFormat(configuration.dateFormat);
     this.setRoutePrefix(configuration.routePrefix);
-    
+
     this.configuration = configuration;
   }
 
@@ -69,37 +69,44 @@ module.exports = class OandaAPI {
    * base_url: api-fxpractice.oanda.com
    * route_path: /accounts
    * route_prefix: /v3
-   * 
+   *
    * The output request URL will become
    * https://api-fxpractice.oanda.com/v3/accounts
-   * 
+   *
    * Default: 'practice'
-   * @param {string} format 
+   * @param {string} format
    */
-  setRoutePrefix (prefix) {
+  setRoutePrefix(prefix) {
     this.routePrefix = prefix || '';
   }
 
   /**
    * Sets the URL hosts to use as the base paths for API requests and streams.
    * Can be either 'real' or 'practice'.
-   * 
+   *
    * Default: 'practice'
-   * @param {string} format 
+   * @param {string} format
    */
-  setEnvironment (env) {
-    utils.assert(ENV_VALUES.find(a => a === env),
-      `Invalid environment, [${ENV_VALUES.join(',')}] allowed but received [${env}]`);
+  setEnvironment(env) {
+    utils.assert(
+      ENV_VALUES.find(a => a === env),
+      `Invalid environment, [${ENV_VALUES.join(
+        ',',
+      )}] allowed but received [${env}]`,
+    );
 
     this.urls = env === OANDA_ENV.REAL ? urls.real : urls.practice;
   }
 
   /**
    * Set the access token to be sent in the Authorization header of API requests.
-   * @param {string} token 
+   * @param {string} token
    */
-  setAccessToken (token) {
-    utils.assert(token, 'You can not remove the access token using the setAccessToken method. Please use removeAccessToken instead');
+  setAccessToken(token) {
+    utils.assert(
+      token,
+      'You can not remove the access token using the setAccessToken method. Please use removeAccessToken instead',
+    );
 
     this.accessToken = token || 'NO_TOKEN';
   }
@@ -107,33 +114,41 @@ module.exports = class OandaAPI {
   /**
    * Remove the access token so that no Authorization header is sent in API requests.
    */
-  removeAccessToken () {
+  removeAccessToken() {
     this.accessToken = null;
   }
 
   /**
    * Set the date time format sent in the AcceptDatetimeFormat header of API requests.
    * Can be either 'UNIX' or 'RFC3339'
-   * 
+   *
    * Default: 'RFC3339'
-   * @param {string} format 
+   * @param {string} format
    */
-  setDateFormat (format) {
-    utils.assert(DATEFORMAT_VALUES.find(a => a === format),
-      `Invalid date format, [${DATEFORMAT_VALUES.join(',')}] allowed but received [${format}]`);
+  setDateFormat(format) {
+    utils.assert(
+      DATEFORMAT_VALUES.find(a => a === format),
+      `Invalid date format, [${DATEFORMAT_VALUES.join(
+        ',',
+      )}] allowed but received [${format}]`,
+    );
 
     this.dateFormat = format;
   }
 
   /**
    * Performs an HTTPS request to the Oanda servers, based on the parameters that were passed in.
-   * @param {object} options 
+   * @param {object} options
    */
-  _request (options, callback) {
+  _request(options, callback) {
     utils.assert(options, 'No options were supplied to the request method');
 
-    utils.assert(HTTP_METHOD_VALUES.find(a => a === options.method),
-      `Invalid HTTP method, [${HTTP_METHOD_VALUES.join(',')}] allowed but received [${options.method}]`);
+    utils.assert(
+      HTTP_METHOD_VALUES.find(a => a === options.method),
+      `Invalid HTTP method, [${HTTP_METHOD_VALUES.join(
+        ',',
+      )}] allowed but received [${options.method}]`,
+    );
 
     let request_options = this._generateRequestOptions(options.method, options);
 
@@ -142,30 +157,40 @@ module.exports = class OandaAPI {
 
   /**
    * Generates the request options required by the https module.
-   * 
-   * @param {string} method 
-   * @param {object} options 
+   *
+   * @param {string} method
+   * @param {object} options
    */
-  _generateRequestOptions (method, options) {
+  _generateRequestOptions(method, options) {
     let https_options = {};
 
     // Data is not an https parameter, but it's used later to write the request
     // inside the HttpsRequest function. Probably could do this a bit cleaner
     https_options.data = options.data ? JSON.stringify(options.data) : '';
-    
-    return Object.assign(https_options, 
-      this._generateRequestHostOptions(this.urls.rest),
+
+    // If apiType is specified as stream use stream url
+    let url =
+      options.apiType === API_TYPE.STREAM ? this.urls.stream : this.urls.rest;
+    https_options.apiType = options.apiType;
+
+    return Object.assign(
+      https_options,
+      this._generateRequestHostOptions(url),
       this._generateRequestPathOptions(method, options, this.routePrefix),
-      this._generateRequestHeaders(method, options, 
-        this.accessToken, 
-        this.dateFormat, 
-        Buffer.byteLength(https_options.data)));
+      this._generateRequestHeaders(
+        method,
+        options,
+        this.accessToken,
+        this.dateFormat,
+        Buffer.byteLength(https_options.data),
+      ),
+    );
   }
 
   /**
    * Generate the host and port options required by the https module
    */
-  _generateRequestHostOptions (host_url) {
+  _generateRequestHostOptions(host_url) {
     const output = {
       protocol: 'https:',
     };
@@ -176,37 +201,45 @@ module.exports = class OandaAPI {
     if (url_parts.length > 1) {
       let port_num = Number(url_parts[1]);
 
-      utils.assert(!isNaN(port_num), `Invalid port number, expected a number but received [${port_num}]`);
-      utils.assert(port_num > 0 && port_num < 65536, `Invalid port number, expected [1-65535], but received [${port_num}]`);
+      utils.assert(
+        !isNaN(port_num),
+        `Invalid port number, expected a number but received [${port_num}]`,
+      );
+      utils.assert(
+        port_num > 0 && port_num < 65536,
+        `Invalid port number, expected [1-65535], but received [${port_num}]`,
+      );
 
       output.host = url_parts[0];
       output.port = port_num;
-    }
-    else {
+    } else {
       output.host = host_url;
       output.port = 443;
     }
-    
+
     return output;
   }
 
   /**
    * Generates the correct request path using the route template and supplied params
-   * 
-   * @param {string} method 
-   * @param {object} options 
+   *
+   * @param {string} method
+   * @param {object} options
    */
-  _generateRequestPathOptions (method, options, prefix) {
+  _generateRequestPathOptions(method, options, prefix) {
     const output = {
       method: method,
-      path: options.path
+      path: options.path,
     };
 
     // Replace URL params with specified values
     if (options.params) {
       // Parse individual route parameters
       Object.keys(options.params).forEach(key => {
-        output.path = output.path.replace(new RegExp(`({${key}})`, 'g'), options.params[key]);
+        output.path = output.path.replace(
+          new RegExp(`({${key}})`, 'g'),
+          options.params[key],
+        );
       });
     }
 
@@ -225,31 +258,38 @@ module.exports = class OandaAPI {
       }, []);
 
       // Attach query string to the output path.
-      output.path = qs_params.length > 0 
-        ? `${output.path}?${qs_params.join('&')}` 
-        : output.path;
+      output.path =
+        qs_params.length > 0
+          ? `${output.path}?${qs_params.join('&')}`
+          : output.path;
     }
 
     output.path = `${prefix}${output.path}`;
-    
+
     return output;
   }
 
   /**
    * Generates the appropriate HTTP headers to send the request.
-   * 
-   * @param {string} method 
-   * @param {object} options 
-   * @param {string} access_token 
-   * @param {string} date_format 
-   * @param {number} byte_length 
+   *
+   * @param {string} method
+   * @param {object} options
+   * @param {string} access_token
+   * @param {string} date_format
+   * @param {number} byte_length
    */
-  _generateRequestHeaders (method, options, access_token, date_format, byte_length) {
+  _generateRequestHeaders(
+    method,
+    options,
+    access_token,
+    date_format,
+    byte_length,
+  ) {
     const output = {
-      headers: {}
+      headers: {},
     };
 
-    // I think in most cases this should be there, but if there's some public facing 
+    // I think in most cases this should be there, but if there's some public facing
     // endpoints in the future it's possibly not wanted.
     if (access_token) {
       output.headers['Authorization'] = `Bearer ${access_token}`;
@@ -259,13 +299,14 @@ module.exports = class OandaAPI {
     output.headers['Accept-Datetime-Format'] = date_format;
 
     // If this is a payload request we need to generate the context headers.
-    if ([HTTP_METHOD.PUT, HTTP_METHOD.POST, HTTP_METHOD.PATCH].indexOf(method) > -1) {
-      output.headers['Content-Type'] = 'application/json',
-      output.headers['Content-Length'] = byte_length;
+    if (
+      [HTTP_METHOD.PUT, HTTP_METHOD.POST, HTTP_METHOD.PATCH].indexOf(method) >
+      -1
+    ) {
+      (output.headers['Content-Type'] = 'application/json'),
+        (output.headers['Content-Length'] = byte_length);
     }
 
     return output;
   }
-
 };
-

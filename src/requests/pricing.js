@@ -1,6 +1,6 @@
 const ROUTES = require('../routes');
 const utils = require('../utils');
-const { HTTP_METHOD } = require('../constant');
+const { HTTP_METHOD, API_TYPE } = require('../constant');
 
 module.exports = class PricingAPI {
 
@@ -31,7 +31,20 @@ module.exports = class PricingAPI {
     }, callback);
   }
 
-  streamInstrumentPricing () {
-    throw new Error('The streaming API has not yet been implemented');
+  streamInstrumentPricing (account_id, query, callback) {
+    utils.assert(account_id, 'An account_id must be supplied to the streamInstrumentPricing endpoint');
+
+    if (query && query.instruments) {
+      utils.assert(Array.isArray(query.instruments), 'Instruments must be an Array to the streamInstrumentPricing endpoint');
+    }
+    return this.request({
+      apiType: API_TYPE.STREAM,
+      method: HTTP_METHOD.GET,
+      path: ROUTES.pricing.streamInstrumentPricing,
+      params: {
+        account_id: account_id
+      },
+      query: query
+    }, callback);
   }
 };
